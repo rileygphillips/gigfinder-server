@@ -16,9 +16,30 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app_api.views import register_user, login_user
+from rest_framework import routers
+from django.conf.urls import include
+
+from app_api.views.Artist import ArtistView
+from app_api.views.Genre import GenreView
+from app_api.views.Gig import GigView
+from app_api.views.Instrument import InstrumentView
+from app_api.views.Musician import MusicianView
+from app_api.views.Skill_Level import SkillLevelView
+
+router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'artists', ArtistView, 'artist')
+router.register(r'musicians', MusicianView, 'musician')
+router.register(r'gigs', GigView, 'gig')
+router.register(r'instruments', InstrumentView, 'instrument')
+router.register(r'skill_levels', SkillLevelView, 'skill_level')
+router.register(r'genres', GenreView, 'genre')
+
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register', register_user),
     path('login', login_user),
+    path('', include(router.urls))
 ]

@@ -1,0 +1,23 @@
+[
+    {
+        "model": "app_api.Instrument",
+        "pk": 1,
+        "fields": {
+            "label": "Drums"
+        }
+    },
+    {
+        "model": "app_api.Instrument",
+        "pk": 2,
+        "fields": {
+            "label": "Guitar"
+        }
+    },
+    {
+        "model": "app_api.Instrument",
+        "pk": 3,
+        "fields": {
+            "label": "Bass"
+        }
+    }
+]

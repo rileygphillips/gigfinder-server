@@ -1,0 +1,19 @@
+[
+    {
+        "model": "app_api.Musician",
+        "pk": 1,
+        "fields": {
+            "musician": 2,
+            "first_name": "Steve",
+            "last_name": "Jordan",
+            "location": "Los Angeles, CA",
+            "bio": "I'm a drummer",
+            "email": "steve@email.com",
+            "skill_level": 3,
+            "resume_link": "https://docs.google.com/document/d/1J7W5PCsYZ1mv47OU7R4bWWPu27KdqBtOHXCMIaG3Auw/edit?usp=sharing",
+            "audition_video_link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            "instruments": 1,
+            "photo_link": "https://townsquare.media/site/295/files/2021/10/attachment-Stones-Steve-Jordan.jpg?w=980&q=75"
+        }
+    }
+]
