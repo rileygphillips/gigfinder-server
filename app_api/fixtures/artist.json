@@ -1,0 +1,16 @@
+[
+    {
+        "model": "app_api.Artist",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "name": "John Mayer",
+            "location": "Los Angeles, CA",
+            "bio": "I'm an Artist",
+            "genre": 2,
+            "music_link": "https://soundcloud.com/johnmayer?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing",
+            "website_link": "https://johnmayer.com/",
+            "photo_link": "https://yt3.ggpht.com/qbceFhmqhXfX7jH_q3jL1UAZ3GEsgupsbpM-ABWYcQStBjudS5V-FdJyxLVdnTSuV5pdzE-h-fY=s900-c-k-c0x00ffffff-no-rj"
+        }
+    }
+]

@@ -1,0 +1,18 @@
+[
+    {
+        "model": "app_api.Gig",
+        "pk": 1,
+        "fields": {
+            "artist": 1,
+            "gig_name": "2022 Summer Tour",
+            "location": "Nashville,TN",
+            "date": "2022-07-01T00:17:00",
+            "description": "Looking for a drummer",
+            "genre": 2,
+            "venue": "Bridgestone Arena",
+            "skill_level_needed": 3,
+            "instruments_needed": 1,
+            "photo_link": "https://static.pollstar.com/wp-content/uploads/2022/01/c2633f77-a9df-4ed6-ad2d-1e3472bcfaa0-GettyImages-1164338168-scaled.jpg"
+        }
+    }
+]

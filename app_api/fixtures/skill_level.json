@@ -1,0 +1,23 @@
+[
+    {
+        "model": "app_api.skilllevel",
+        "pk": 1,
+        "fields": {
+            "label": "Beginner"
+        }
+    },
+    {
+        "model": "app_api.skilllevel",
+        "pk": 2,
+        "fields": {
+            "label": "Intermediate"
+        }
+    },
+    {
+        "model": "app_api.skilllevel",
+        "pk": 3,
+        "fields": {
+            "label": "Pro"
+        }
+    }
+]

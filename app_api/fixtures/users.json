@@ -1,0 +1,35 @@
+[
+    
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$216000$qMRH8szID7Z8$Vljya2V3XfruOHuvx1hGz9ZyKg4bxbw7rc2WO0gTR7I=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "johnmayer",
+            "first_name": "John",
+            "last_name": "Mayer",
+            "email": "john@email.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-06-14T14:51:39.989Z"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$216000$qMRH8szID7Z8$Vljya2V3XfruOHuvx1hGz9ZyKg4bxbw7rc2WO0gTR7I=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "stevejordan",
+            "first_name": "Steve",
+            "last_name": "Jordan",
+            "email": "steve@email.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-06-14T14:51:39.989Z"
+        }
+    }
+]

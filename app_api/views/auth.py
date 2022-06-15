@@ -6,6 +6,12 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 
+from app_api.models.Artist import Artist
+from app_api.models.Genre import Genre
+from app_api.models.Instrument import Instrument
+from app_api.models.Musician import Musician
+from app_api.models.Skill_Level import SkillLevel
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -25,7 +31,8 @@ def login_user(request):
         # TODO: If you need to return more information to the client, update the data dict
         data = {
             'valid': True,
-            'token': token.key
+            'token': token.key,
+            'is_artist': bool(authenticated_user.artist)
         }
     else:
         data = { 'valid': False }
@@ -44,10 +51,36 @@ def register_user(request):
     new_user = User.objects.create_user(
         username=request.data['username'],
         password=request.data['password'],
+        first_name=request.data['first_name'],
+        last_name=request.data['last_name'],
+        email=request.data['email']
     )
-
-    # TODO: If you're using a model with a 1 to 1 relationship to the django user, create that object here
-
+    # Now save the extra info in the app_api_artist table
+    artist = Artist.objects.create(
+        name = request.data["name"],
+        location = request.data["location"],
+        bio = request.data["bio"],
+        genre = Genre.objects.get(pk=request.data["genre"]),
+        music_link = request.data["music_link"],
+        website_link = request.data["website_link"],
+        photo_link = request.data["photo_link"],
+        user = new_user
+    )
+    # Now save the extra info in the app_api_musician table
+    musician = Musician.objects.create(
+        skill_level = SkillLevel.objects.get(pk=request.data["skill_level"]),
+        first_name = request.data["first_name"],
+        last_name = request.data["last_name"],
+        location = request.data["location"],
+        bio = request.data["bio"],
+        email = request.data["email"],
+        resume_link = request.data["resume_link"],
+        audition_video_link = request.data["audition_video_link"],
+        instruments = Instrument.objects.get(pk=request.data["instrument"]),
+        photo_link = request.data["photo_link"],
+        user = new_user
+    )
+    
     
     token = Token.objects.create(user=new_user)
     # TODO: If you need to send the client more information update the data dict
