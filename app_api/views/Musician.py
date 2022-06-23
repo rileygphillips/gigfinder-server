@@ -4,10 +4,10 @@ from rest_framework import serializers, status
 from app_api.models import Instrument
 from app_api.models.Skill_Level import SkillLevel
 from app_api.models.Musician import Musician
-
+from rest_framework.permissions import AllowAny
 class MusicianView(ViewSet):
     """Musician View"""
-
+    permission_classes = [AllowAny]
     def retrieve(self, request, pk):
         """Handle GET requests for single Musician
         
