@@ -5,7 +5,8 @@ from app_api.models.Skill_Level import SkillLevel
 
 class SkillLevelView(ViewSet):
     """SkillLevel View"""
-
+    
+    permission_classes = []
     def retrieve(self, request, pk):
         """Handle GET requests for single SkillLevel
         

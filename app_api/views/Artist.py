@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from app_api.models.Artist import Artist
 from app_api.models.Genre import Genre
+from rest_framework.permissions import AllowAny
 
 class ArtistView(ViewSet):
     """Artist View"""
@@ -10,6 +11,9 @@ class ArtistView(ViewSet):
     # 2. We use the ArtistSerializer to serialize the artist.
     # 3. We use the Response class to return the serialized artist.
     # 4. We use the status class to return a 404 status if the artist does not exist. 
+    
+    permission_classes = [AllowAny]
+    
     def retrieve(self, request, pk):
         """Handle GET requests for single Artist
         

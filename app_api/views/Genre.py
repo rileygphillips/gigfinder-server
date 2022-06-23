@@ -6,7 +6,8 @@ from app_api.models.Genre import Genre
 
 class GenreView(ViewSet):
     """Genre View"""
-
+    permission_classes = []
+    
     def retrieve(self, request, pk):
         """Handle GET requests for single Genre
         

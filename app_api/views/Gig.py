@@ -13,7 +13,7 @@ from app_api.models.Skill_Level import SkillLevel
 
 class GigView(ViewSet):
     """Musician View"""
-
+    permission_classes = []
     def retrieve(self, request, pk):
         """Handle GET requests for single Gig
         
@@ -34,8 +34,28 @@ class GigView(ViewSet):
             Response -- JSON serialized list of Gig
         """
         gigs = Gig.objects.all()
+        user = request.query_params.get('user', None)
+        if user is not None:
+            gigs = gigs.filter(artist=artist)
+        artist = request.query_params.get('artist', None)
+        if artist is not None:
+            gigs = gigs.filter(artist=artist)
+        for gig in gigs:
+            gig.is_authorized=gig.artist.user==request.user
+            
         serializer = GigSerializer(gigs, many=True)
         return Response(serializer.data)
+    
+    @action(methods=["get"], detail=False)
+    def current_artist_list(self, request):
+            artist = Artist.objects.get(user_id=request.auth.user.id)
+            gigs = Gig.objects.filter(artist=artist)
+            
+            for gig in gigs:
+                gig.is_authorized=gig.artist==artist
+            
+            serializer = GigSerializer(gigs, many=True)
+            return Response(serializer.data)
 
     def create(self, request):
         """Handle POST operations
@@ -43,7 +63,7 @@ class GigView(ViewSet):
         Returns:
             Response -- JSON serialized Gig instance
         """
-        artist = Artist.objects.get(pk=request.auth.user.id)
+        artist = Artist.objects.get(user_id=request.auth.user.id)
         serializer = CreateGigSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save(artist=artist)
@@ -57,14 +77,14 @@ class GigView(ViewSet):
         """
 
         gig = Gig.objects.get(pk=pk)
-        gig.skill_level = SkillLevel.objects.get(pk=pk)
+        gig.skill_level_needed = SkillLevel.objects.get(pk=request.data["skill_level_needed"])
         gig.gig_name = request.data["gig_name"]
         gig.location = request.data["location"]
         gig.date = request.data["date"]
         gig.description = request.data["description"]
-        gig.genre = Genre.objects.get(pk=pk)
+        gig.genre = Genre.objects.get(pk=request.data["genre"])
         gig.venue = request.data["venue"]
-        gig.instruments = Instrument.objects.get(pk=pk)
+        gig.instruments_needed = Instrument.objects.get(pk=request.data["instruments_needed"])
         gig.photo_link = request.data["photo_link"]
         gig.save()
 

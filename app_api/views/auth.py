@@ -28,11 +28,16 @@ def login_user(request):
 
     if authenticated_user is not None:
         token = Token.objects.get(user=authenticated_user)
+        try:
+            is_artist = Artist.objects.get(user=authenticated_user)
+        
+        except Artist.DoesNotExist:
+            is_artist = False
         # TODO: If you need to return more information to the client, update the data dict
         data = {
             'valid': True,
             'token': token.key,
-            'is_artist': bool(authenticated_user.artist)
+            'is_artist': bool(is_artist)
         }
     else:
         data = { 'valid': False }
@@ -55,31 +60,35 @@ def register_user(request):
         last_name=request.data['last_name'],
         email=request.data['email']
     )
-    # Now save the extra info in the app_api_artist table
-    artist = Artist.objects.create(
-        name = request.data["name"],
-        location = request.data["location"],
-        bio = request.data["bio"],
-        genre = Genre.objects.get(pk=request.data["genre"]),
-        music_link = request.data["music_link"],
-        website_link = request.data["website_link"],
-        photo_link = request.data["photo_link"],
-        user = new_user
-    )
-    # Now save the extra info in the app_api_musician table
-    musician = Musician.objects.create(
-        skill_level = SkillLevel.objects.get(pk=request.data["skill_level"]),
-        first_name = request.data["first_name"],
-        last_name = request.data["last_name"],
-        location = request.data["location"],
-        bio = request.data["bio"],
-        email = request.data["email"],
-        resume_link = request.data["resume_link"],
-        audition_video_link = request.data["audition_video_link"],
-        instruments = Instrument.objects.get(pk=request.data["instrument"]),
-        photo_link = request.data["photo_link"],
-        user = new_user
-    )
+    
+    if request.data['is_artist'] == True:
+        # Now save the extra info in the app_api_artist table
+        artist = Artist.objects.create(
+            name = request.data["name"],
+            location = request.data["location"],
+            bio = request.data["bio"],
+            genre = Genre.objects.get(pk=request.data["genre"]),
+            music_link = request.data["music_link"],
+            website_link = request.data["website_link"],
+            photo_link = request.data["photo_link"],
+            user = new_user
+        )
+    
+    if request.data['is_artist'] == False:
+        # Now save the extra info in the app_api_musician table
+        musician = Musician.objects.create(
+            skill_level = SkillLevel.objects.get(pk=request.data["skill_level"]),
+            first_name = request.data["first_name"],
+            last_name = request.data["last_name"],
+            location = request.data["location"],
+            bio = request.data["bio"],
+            email = request.data["email"],
+            resume_link = request.data["resume_link"],
+            audition_video_link = request.data["audition_video_link"],
+            instruments = Instrument.objects.get(pk=request.data["instrument"]),
+            photo_link = request.data["photo_link"],
+            musician = new_user
+        )
     
     
     token = Token.objects.create(user=new_user)
